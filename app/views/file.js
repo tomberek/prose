@@ -8,7 +8,7 @@ var Handsontable = require('handsontable');
 var Papa = require('papaparse');
 
 var ModalView = require('./modal');
-var marked = require('marked');
+// var marked = require('marked');
 var diff = require('diff');
 var Backbone = require('backbone');
 var File = require('../models/file');
@@ -382,6 +382,7 @@ module.exports = Backbone.View.extend({
       dragDrop: false,
       theme: 'prose-bright'
     });
+    window.editor = this.editor;
 
     // Bind Drag and Drop work on the editor
     if (this.model.get('markdown') && this.model.get('writable')) {
@@ -697,7 +698,7 @@ module.exports = Backbone.View.extend({
     } else {
       if (e) e.preventDefault();
 
-      this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
+      // this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
 
       this.mode = 'blob';
       this.contentMode('preview');
@@ -729,7 +730,7 @@ module.exports = Backbone.View.extend({
     });
 
     // If it's markdown, run it through marked; otherwise, leave it alone.
-    if(this.model.get('markdown'))  parsedTemplate = marked(parsedTemplate);
+    // if(this.model.get('markdown'))  parsedTemplate = marked(parsedTemplate);
 
     var p = {
       site: this.collection.config,
@@ -838,7 +839,7 @@ module.exports = Backbone.View.extend({
   },
 
   contentMode: function(mode) {
-    this.$el.find('.views .view').removeClass('active');
+    // this.$el.find('.views .view').removeClass('active');
     if (mode) {
       this.$el.find('#' + mode).addClass('active');
     } else {
