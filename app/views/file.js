@@ -9,8 +9,6 @@ var Papa = require('papaparse');
 
 var ModalView = require('./modal');
 var marked = require('marked');
-var rts = require('rts');
-var pandoc = require('lib');
 var diff = require('diff');
 var Backbone = require('backbone');
 var File = require('../models/file');
