@@ -3863,7 +3863,7 @@ var Handsontable = require('handsontable');
 var Papa = require('papaparse');
 
 var ModalView = require('./modal');
-var marked = require('marked');
+// var marked = require('marked');
 var diff = require('diff');
 var Backbone = require('backbone');
 var File = require('../models/file');
@@ -4555,8 +4555,6 @@ module.exports = Backbone.View.extend({
       var content = this.model.get('content');
       js_callback_(content);
       // this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
-      alert('ok');
-      this.$el.find('#preview').html(js_ret_);
 
       this.mode = 'blob';
       this.contentMode('preview');
@@ -4588,12 +4586,9 @@ module.exports = Backbone.View.extend({
     });
 
     // If it's markdown, run it through marked; otherwise, leave it alone.
-    if(this.model.get('markdown'))  parsedTemplate = marked(parsedTemplate);
+    // if(this.model.get('markdown'))  parsedTemplate = marked(parsedTemplate);
     var content = this.model.get('content');
     js_callback_(content);
-    // this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
-    alert('ok');
-    parsedTemplate = js_ret_;
 
     var p = {
       site: this.collection.config,
@@ -5272,7 +5267,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"../../dist/templates":58,"../../vendor/liquid.patch":123,"../config":8,"../cookie":9,"../models/file":12,"../upload":20,"../util":21,"./header":27,"./metadata":38,"./modal":39,"./toolbar":56,"backbone":59,"codemirror":65,"diff":77,"handsontable":79,"jquery-browserify":82,"js-yaml":83,"marked":114,"papaparse":115,"queue-async":117,"underscore":118}],26:[function(require,module,exports){
+},{"../../dist/templates":58,"../../vendor/liquid.patch":123,"../config":8,"../cookie":9,"../models/file":12,"../upload":20,"../util":21,"./header":27,"./metadata":38,"./modal":39,"./toolbar":56,"backbone":59,"codemirror":65,"diff":77,"handsontable":79,"jquery-browserify":82,"js-yaml":83,"papaparse":115,"queue-async":117,"underscore":118}],26:[function(require,module,exports){
 var $ = require('jquery-browserify');
 var _ = require('underscore');
 var Backbone = require('backbone');
