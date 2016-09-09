@@ -4237,6 +4237,7 @@ module.exports = Backbone.View.extend({
       dragDrop: false,
       theme: 'prose-bright'
     });
+    window.editor = this.editor;
 
     // Bind Drag and Drop work on the editor
     if (this.model.get('markdown') && this.model.get('writable')) {
@@ -4552,8 +4553,6 @@ module.exports = Backbone.View.extend({
     } else {
       if (e) e.preventDefault();
 
-      var content = this.model.get('content');
-      js_callback_(content);
       // this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
 
       this.mode = 'blob';
@@ -4587,8 +4586,6 @@ module.exports = Backbone.View.extend({
 
     // If it's markdown, run it through marked; otherwise, leave it alone.
     // if(this.model.get('markdown'))  parsedTemplate = marked(parsedTemplate);
-    var content = this.model.get('content');
-    js_callback_(content);
 
     var p = {
       site: this.collection.config,
@@ -4697,7 +4694,7 @@ module.exports = Backbone.View.extend({
   },
 
   contentMode: function(mode) {
-    this.$el.find('.views .view').removeClass('active');
+    // this.$el.find('.views .view').removeClass('active');
     if (mode) {
       this.$el.find('#' + mode).addClass('active');
     } else {

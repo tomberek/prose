@@ -1,0 +1,19 @@
+.editor {
+    display: flex;
+    flex-direction: row;
+}
+.limiter {
+    margin: 1em; auto;
+}
+.preview {
+    width: 500px;
+}
+@media (min-width: 1401px)
+.containment, .limiter {
+    width: 100%;
+    min-width: 800px;
+    max-width: 840px;
+}
+
+
+
