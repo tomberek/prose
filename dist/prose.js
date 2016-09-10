@@ -71740,8 +71740,8 @@ function hasOwnProperty(obj, prop) {
 module.exports={
   "api": "https://api.github.com",
   "site": "https://github.com",
-  "clientId": "c602a8bd54b1e774f864",
-  "gatekeeperUrl": "https://prose-gatekeeper.herokuapp.com"
+  "clientId": "f1e5e055a41e4ebfb077",
+  "gatekeeperUrl": "https://gatekeeper-prose.herokuapp.com"
 }
 
 },{}],122:[function(require,module,exports){
