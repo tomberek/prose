@@ -2919,8 +2919,8 @@ span.CodeMirror-selectedtext {
   .containment,
   .limiter {
     width: 100%;
-    min-width: 680px;
-    max-width: 840px; } }
+    max-width: 95%;
+ } }
 
 /* Screen sizes < 1200px --------------------- */
 @media all and (max-width: 1400px) {

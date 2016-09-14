@@ -1,19 +1,15 @@
-.editor {
-    display: flex;
-    flex-direction: row;
+.edit {
+    width: 40%;
+    vertical-align:top;
 }
 .limiter {
     margin: 1em; auto;
 }
+.post .view.active {
+    display:inline-block;
+    width:47%;
+}
 .preview {
-    width: 500px;
+    margin-left: 5%;
 }
-@media (min-width: 1401px)
-.containment, .limiter {
-    width: 100%;
-    min-width: 800px;
-    max-width: 840px;
-}
-
-
 
