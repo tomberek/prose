@@ -9,6 +9,7 @@ var Papa = require('papaparse');
 
 var ModalView = require('./modal');
 var marked = require('marked');
+var pandoc = require('pandoc/pandoc');
 var diff = require('diff');
 var Backbone = require('backbone');
 var File = require('../models/file');
@@ -617,7 +618,11 @@ module.exports = Backbone.View.extend({
       // Preview needs access to marked, so it's registered here
       Liquid.Template.registerFilter({
         'markdownify': function(input) {
-          return marked(input || '');
+          if (typeof pandocToHtml == "undefined"){
+              return marked(input || '');
+          } else {
+              return pandocToHtml(input || '');
+          };
         }
       });
 
@@ -697,7 +702,11 @@ module.exports = Backbone.View.extend({
     } else {
       if (e) e.preventDefault();
 
-      this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
+      if (typeof pandocToHtml == "undefined"){
+          this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
+      } else {
+          this.$el.find('#preview').html(pandocToHtml(this.compilePreview(this.model.get('content'))));
+      };
 
       this.mode = 'blob';
       this.contentMode('preview');
@@ -729,7 +738,11 @@ module.exports = Backbone.View.extend({
     });
 
     // If it's markdown, run it through marked; otherwise, leave it alone.
-    if(this.model.get('markdown'))  parsedTemplate = marked(parsedTemplate);
+      if (typeof pandocToHtml == "undefined"){
+            if(this.model.get('markdown'))  parsedTemplate = marked(parsedTemplate);
+      } else {
+            if(this.model.get('markdown'))  parsedTemplate = pandocToHtml(parsedTemplate);
+      };
 
     var p = {
       site: this.collection.config,

@@ -1,0 +1,5 @@
+{
+    "name"          : "pandoc",
+    "version"       : "0.0.8",
+    "description"   : "Pandoc-light compiled via GHCJS"
+}
