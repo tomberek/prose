@@ -109,7 +109,8 @@ gulp.task('oauth', function () {
 gulp.task('build-tests', ['templates', 'oauth'], function() {
   var tests = browserify({
     debug: true,
-    noParse: [require.resolve('handsontable/dist/handsontable.full')]
+    noParse: [require.resolve('handsontable/dist/handsontable.full'),
+              require.resolve('pandoc/pandoc') ]
   })
   .add('./test/index.js')
   .external(['chai', 'mocha'])
@@ -125,7 +126,8 @@ gulp.task('build-tests', ['templates', 'oauth'], function() {
 // Browserify app scripts, then concatenate with vendor scripts into `prose.js`.
 gulp.task('build-app', ['templates', 'oauth'], function() {
   var app = browserify({
-    noParse: [require.resolve('handsontable/dist/handsontable.full')]
+    noParse: [require.resolve('handsontable/dist/handsontable.full'),
+              require.resolve('pandoc/pandoc') ]
   })
   .add('./app/boot.js')
   .bundle()

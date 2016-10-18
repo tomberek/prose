@@ -308,7 +308,8 @@ module.exports = Backbone.View.extend({
       }
     }).bind(this));
 
-    return _.escape(content);
+    // return _.escape(content);
+    return content;
   },
 
   toggleEditor: function() {
