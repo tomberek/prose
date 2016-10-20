@@ -17,7 +17,10 @@ module.exports = Backbone.View.extend({
 
   events: {
     'click a[href="#scopes"]': 'toggleScope',
-    'change .toggle-hide select': 'setScope'
+    'click a[href="#logins"]': 'toggleLogin',
+    'change .toggle-hide select': 'setScope',
+    'click #login-button': 'setCreds',
+    'submit #login-form' : 'setCreds'
   },
 
   template: templates.start,
@@ -29,7 +32,12 @@ module.exports = Backbone.View.extend({
 
   toggleScope: function(e) {
     e.preventDefault();
-    this.$('.toggle-hide').toggleClass('show');
+    this.$('#scope').toggleClass('show');
+  },
+
+  toggleLogin: function(e) {
+    e.preventDefault();
+    this.$('#opt-input').toggleClass('show');
   },
 
   setScope: function(e) {
@@ -37,6 +45,40 @@ module.exports = Backbone.View.extend({
     this.persistScope(scope);
     this.render();
     router.app.nav.render();
+  },
+
+  setCreds: function(e){
+      var login = $('#login').val();
+      var headers = {headers : {
+          'Authorization':
+            'Basic ' + window.btoa(window.unescape(window.encodeURIComponent(login + ':' + $("#password").val())))
+        }};
+      if (otp=$('#otp').val()) {
+          headers.headers["X-GitHub-OTP"]=otp;
+      }
+      $.ajaxSetup(headers);
+	  var ajax = $.ajax({
+          type: 'POST',
+          url: auth.api + '/authorizations',
+          data: '{"scopes":["repo"],"note":"Used for Prose:' + Date.now() + '"}',
+          success: function(data) {
+            cookie.set('oauth-token', data.token);
+            cookie.set('auth', "oauth");
+
+            var regex = new RegExp(/^(.*\/)(.*?)$/gi);
+            window.location.href = window.location.href.replace(regex, '$1#' + login);
+
+            // if (_.isFunction(options.success)) options.success();
+          },
+          error: function(data) {
+              alert(data.responseText);
+              console.log(data.responseText);
+              $("#login-button").val(null);
+              $("#login-button").prop("disabled",null);
+          }
+        });
+      $("#login-button").prop("disabled",true);
+      $("#login-button").val('false');
   },
 
   persistScope: function(scope) {

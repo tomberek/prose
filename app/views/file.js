@@ -21,6 +21,31 @@ var util = require('../util');
 var upload = require('../upload');
 var cookie = require('../cookie');
 var templates = require('../../dist/templates');
+m = new Worker ('../worker.js');
+dirt = false;
+function debounce(func, wait, immediate, ending) {
+    var timeout;
+    return function() {
+        var context = this;
+        var args = arguments;
+        var later = function() {
+            timeout = null;
+            if (args[1]) args[0] = args[1].apply(context);
+            if (!immediate || ending) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+postMessage = debounce(function(e,d){
+    m.postMessage(e);
+},150,true,true);
+
+m.onmessage = function(e){
+        $('#preview').html(e.data);
+};
 
 module.exports = Backbone.View.extend({
   id: 'post',
@@ -410,6 +435,23 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.editor, 'change', this.makeDirty, this);
     this.listenTo(this.editor, 'focus', this.focus, this);
 
+    //Events from editor
+    scope = this;
+
+    this.listenTo(this.editor, 'change', function() {
+        if (!dirt){
+            // dirt=true;
+            var content = scope.compilePreview(scope.model.get('content'));
+            postMessage(content,function(){return scope.compilePreview(scope.model.get('content'));
+        });}});
+    this.listenTo(this.editor, 'focus', function() {
+        if (!dirt){
+            // dirt=true;
+            var content = scope.compilePreview(scope.model.get('content'));
+            // postMessage(content);
+            postMessage(content,function(){return scope.compilePreview(scope.model.get('content'));
+        });}});
+
     this.refreshCodeMirror();
 
     // Check sessionStorage for existing stash
@@ -622,7 +664,11 @@ module.exports = Backbone.View.extend({
           if (typeof pandocToHtml == "undefined"){
               return marked(input || '');
           } else {
-              return pandocToHtml(input || '');
+              if (!dirt) {
+                  // dirt=true;
+                  postMessage(input || '');
+              }
+              // return pandocToHtml(input || '');
           };
         }
       });
@@ -706,7 +752,11 @@ module.exports = Backbone.View.extend({
       if (typeof pandocToHtml == "undefined"){
           this.$el.find('#preview').html(marked(this.compilePreview(this.model.get('content'))));
       } else {
-          this.$el.find('#preview').html(pandocToHtml(this.compilePreview(this.model.get('content'))));
+          if (!dirt){
+              // dirt=true;
+              postMessage(this.compilePreview(this.model.get('content')));
+          }
+          // this.$el.find('#preview').html(pandocToHtml(this.compilePreview(this.model.get('content'))));
       };
 
       this.mode = 'blob';

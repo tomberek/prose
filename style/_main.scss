@@ -1356,6 +1356,12 @@
 .toggle-hide.show select {
   display: block;
   }
+.toggle-hide input {
+  display: none;
+  }
+.toggle-hide.show input {
+  display: block;
+  }
 .toggle-hide a {
   padding: 5px 0;
   display: block;
