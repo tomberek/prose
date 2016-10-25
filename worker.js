@@ -1,5 +1,5 @@
 // importScripts('pandoc.js');
-importScripts('js-pandoc.js');
+importScripts('./js-pandoc.js');
 window={};
 debug= false;
 pandoc = true;
