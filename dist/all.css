@@ -1,15 +1,21 @@
 .edit {
-    width: 40%;
-    vertical-align:top;
+  width: 45%;
+  vertical-align:top;
 }
 .limiter {
-    margin: 1em; auto;
+  margin: 1em; auto;
 }
 .post .view.active {
-    display:inline-block;
-    width:47%;
+  display:inline-block;
+  width:47%;
 }
 .preview {
-    margin-left: 5%;
+  margin-left: 5%;
 }
-
+#preview {
+  display: inline-block;
+  width: 47%;
+}
+  div#post.post.limiter {
+  max-width:95%;
+}

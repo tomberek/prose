@@ -1822,6 +1822,12 @@ a:hover .popup {
 .toggle-hide.show select {
   display: block; }
 
+.toggle-hide input {
+  display: none; }
+
+.toggle-hide.show input {
+  display: block; }
+
 .toggle-hide a {
   padding: 5px 0;
   display: block; }
@@ -2406,7 +2412,7 @@ a:hover .popup {
 
 .cm-fat-cursor .CodeMirror-cursor {
   width: auto;
-  border: 0;
+  border: 0 !important;
   background: #7e7; }
 
 .cm-fat-cursor div.CodeMirror-cursors {
@@ -2443,8 +2449,18 @@ a:hover .popup {
   display: inline-block;
   text-decoration: inherit; }
 
+.CodeMirror-rulers {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -50px;
+  bottom: -20px;
+  overflow: hidden; }
+
 .CodeMirror-ruler {
   border-left: 1px solid #ccc;
+  top: 0;
+  bottom: 0;
   position: absolute; }
 
 /* DEFAULT THEME */
@@ -2701,7 +2717,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   visibility: hidden; }
 
 .CodeMirror-cursor {
-  position: absolute; }
+  position: absolute;
+  pointer-events: none; }
 
 .CodeMirror-measure pre {
   position: static; }
@@ -2919,8 +2936,8 @@ span.CodeMirror-selectedtext {
   .containment,
   .limiter {
     width: 100%;
-    max-width: 95%;
- } }
+    min-width: 680px;
+    max-width: 840px; } }
 
 /* Screen sizes < 1200px --------------------- */
 @media all and (max-width: 1400px) {
