@@ -76,7 +76,7 @@ function Pandoc(text, options = {}) {
             if(window[opt]==options[opt]){console.info(opt, options[opt]);}else{console.warn(opt, options[opt], 'wrong type');}
         }
 	}
-	console.groupEnd();
+	// console.groupEnd();
 
 	if (!debug) {
 		window.console = {
